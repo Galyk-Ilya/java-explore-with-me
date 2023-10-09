@@ -25,8 +25,8 @@ public class CompilationController {
 
     @GetMapping
     List<CompilationDto> findCompilations(@RequestParam(required = false) boolean pinned,
-                                          @RequestParam(name = "from", defaultValue = "0") @PositiveOrZero int from,
-                                          @RequestParam(name = "size", defaultValue = "10") @Positive int size) {
+                                          @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                          @RequestParam(defaultValue = "10") @Positive int size) {
         List<CompilationDto> ans = compilationService.findCompilations(pinned, from, size);
         log.info("Getting a list of event collections.");
         return ans;

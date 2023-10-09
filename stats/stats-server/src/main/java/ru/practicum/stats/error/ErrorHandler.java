@@ -20,7 +20,7 @@ public class ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleNotValidException(NotValidException e) {
-        log.info("Временные рамки заданы неверно");
+        log.info("The time frame is incorrect");
         return ApiError.builder()
                 .errors(Collections.singletonList(Arrays.toString(e.getStackTrace())))
                 .reason("Bad request")

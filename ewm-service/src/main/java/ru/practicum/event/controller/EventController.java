@@ -51,51 +51,51 @@ public class EventController {
         if (newEventDto.getRequestModeration() == null) {
             newEventDto.setRequestModeration(true);
         }
-        EventFullDto ans = eventService.addEvent(newEventDto, id);
-        log.info("User id ={} created a new event id = {}", id, ans.getId());
-        return ans;
+        EventFullDto eventFull = eventService.addEvent(newEventDto, id);
+        log.info("User id ={} created a new event id = {}", id, eventFull.getId());
+        return eventFull;
     }
 
     @GetMapping("/{userId}/events")
     public List<EventShortDto> findEvents(@PathVariable(name = "userId") Long id,
                                           @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                           @RequestParam(defaultValue = "10") @Positive int size) {
-        List<EventShortDto> ans = eventService.findEvents(id, from, size);
+        List<EventShortDto> eventShort = eventService.findEvents(id, from, size);
         log.info("List of user events id {}", id);
-        return ans;
+        return eventShort;
     }
 
     @GetMapping("/{userId}/events/{eventId}")
     public EventFullDto findEvent(@PathVariable(name = "userId") Long idUser,
                                   @PathVariable(name = "eventId") Long idEvent) {
-        EventFullDto ans = eventService.findEvent(idUser, idEvent);
+        EventFullDto eventFull = eventService.findEvent(idUser, idEvent);
         log.info("Receiving data by event id = {}", idEvent);
-        return ans;
+        return eventFull;
     }
 
     @PatchMapping("/{userId}/events/{eventId}")
     public EventFullDto updateEvent(@PathVariable(name = "userId") Long idUser,
                                     @PathVariable(name = "eventId") Long idEven,
                                     @RequestBody @Valid UpdateEventUserRequestDto updateEventUserRequestDto) {
-        EventFullDto ans = eventService.updateEvent(idUser, idEven, updateEventUserRequestDto);
+        EventFullDto eventFull = eventService.updateEvent(idUser, idEven, updateEventUserRequestDto);
         log.info("User id = {}, changed the event id = {}", idUser, idEven);
-        return ans;
+        return eventFull;
     }
 
     @GetMapping("/{userId}/events/{eventId}/requests")
     public List<ParticipationRequestDto> findRequestsByUsersEvent(@PathVariable(name = "userId") Long idUser,
                                                                   @PathVariable(name = "eventId") Long idEvent) {
-        List<ParticipationRequestDto> ans = requestService.findRequestsByUsersEvent(idEvent, idUser);
+        List<ParticipationRequestDto> participationRequest = requestService.findRequestsByUsersEvent(idEvent, idUser);
         log.info("Getting a list of requests for an event id = {}, user id = {}", idEvent, idUser);
-        return ans;
+        return participationRequest;
     }
 
     @PatchMapping("/{userId}/events/{eventId}/requests")
     public EventRequestStatusUpdateResultDto updateStatusRequests(@PathVariable(name = "userId") Long idUser,
                                                                   @PathVariable(name = "eventId") Long idEvent,
                                                                   @RequestBody EventRequestStatusUpdateRequestDto statusUpdateRequest) {
-        EventRequestStatusUpdateResultDto ans = requestService.updateStatusRequests(idUser, idEvent, statusUpdateRequest);
+        EventRequestStatusUpdateResultDto eventRequestStatusUpdateResult = requestService.updateStatusRequests(idUser, idEvent, statusUpdateRequest);
         log.info("User id = {} changes the status of requests for an event id = {}.", idUser, idEvent);
-        return ans;
+        return eventRequestStatusUpdateResult;
     }
 }

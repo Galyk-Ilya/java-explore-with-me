@@ -31,9 +31,9 @@ public class AdministrationCompilationController {
     @Validated({ValidationGroup.AddCompilation.class})
     @ResponseStatus(HttpStatus.CREATED)
     public CompilationDto addCompilation(@RequestBody @Valid NewCompilationDto newCompilationDto) {
-        CompilationDto ans = compilationService.addCompilation(newCompilationDto);
+        CompilationDto compilation = compilationService.addCompilation(newCompilationDto);
         log.info("Admin adds a new selection of events");
-        return ans;
+        return compilation;
     }
 
     @DeleteMapping("/{compId}")
@@ -47,8 +47,8 @@ public class AdministrationCompilationController {
     @Validated({ValidationGroup.UpdateCompilation.class})
     public CompilationDto updateCompilation(@PathVariable Long compId,
                                             @RequestBody @Valid NewCompilationDto updateCompilationDto) {
-        CompilationDto ans = compilationService.updateCompilation(compId, updateCompilationDto);
+        CompilationDto compilation = compilationService.updateCompilation(compId, updateCompilationDto);
         log.info("The admin has made changes to the selection of events id = {}", compId);
-        return ans;
+        return compilation;
     }
 }

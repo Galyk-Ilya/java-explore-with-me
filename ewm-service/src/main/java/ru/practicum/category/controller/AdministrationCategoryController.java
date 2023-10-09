@@ -31,17 +31,17 @@ public class AdministrationCategoryController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/categories")
     public CategoryDto addCategory(@Valid @RequestBody CategoryDto categoryDto) {
-        CategoryDto ans = categoryService.addCategory(categoryDto);
+        CategoryDto category = categoryService.addCategory(categoryDto);
         log.info("Admin added category {}", categoryDto.getName());
-        return ans;
+        return category;
     }
 
     @PatchMapping("/categories/{catId}")
     public CategoryDto patchCategory(@RequestBody @Valid CategoryDto categoryDto,
                                      @PathVariable Long catId) {
-        CategoryDto ans = categoryService.patchCategory(catId, categoryDto);
+        CategoryDto category = categoryService.patchCategory(catId, categoryDto);
         log.info("The admin changed the parameter from id = {} to {}.", catId, categoryDto.getName());
-        return ans;
+        return category;
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

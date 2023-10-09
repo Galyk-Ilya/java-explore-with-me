@@ -27,15 +27,15 @@ public class CategoryController {
     @GetMapping
     public List<CategoryDto> findCategories(@RequestParam(defaultValue = "0") int from,
                                             @RequestParam(defaultValue = "10") int size) {
-        List<CategoryDto> ans = categoryService.findCategories(from, size);
+        List<CategoryDto> category = categoryService.findCategories(from, size);
         log.info("Received list of categories");
-        return ans;
+        return category;
     }
 
     @GetMapping("/{catId}")
     public CategoryDto findCategoryById(@PathVariable Long catId) {
-        CategoryDto ans = categoryService.findCategoryById(catId);
+        CategoryDto category = categoryService.findCategoryById(catId);
         log.info("Processed request for category with id = {}.", catId);
-        return ans;
+        return category;
     }
 }

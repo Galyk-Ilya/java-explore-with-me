@@ -27,15 +27,15 @@ public class CompilationController {
     List<CompilationDto> findCompilations(@RequestParam(required = false) boolean pinned,
                                           @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                           @RequestParam(defaultValue = "10") @Positive int size) {
-        List<CompilationDto> ans = compilationService.findCompilations(pinned, from, size);
+        List<CompilationDto> compilation = compilationService.findCompilations(pinned, from, size);
         log.info("Getting a list of event collections.");
-        return ans;
+        return compilation;
     }
 
     @GetMapping("/{compId}")
     CompilationDto findCompilation(@PathVariable Long compId) {
-        CompilationDto ans = compilationService.findCompilation(compId);
+        CompilationDto compilation = compilationService.findCompilation(compId);
         log.info("Getting a selection of events id = {}.", compId);
-        return ans;
+        return compilation;
     }
 }

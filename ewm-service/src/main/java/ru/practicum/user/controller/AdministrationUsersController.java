@@ -45,9 +45,9 @@ public class AdministrationUsersController {
     public List<UserDto> findUsers(@RequestParam(required = false) List<Long> ids,
                                    @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                    @RequestParam(defaultValue = "10") @Positive int size) {
-        List<UserDto> ans = userService.findUsers(ids, from, size);
+        List<UserDto> userDto = userService.findUsers(ids, from, size);
         log.info("The admin receives a response to a request for a list of users.");
-        return ans;
+        return userDto;
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

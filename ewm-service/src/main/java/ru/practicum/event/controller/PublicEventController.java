@@ -41,16 +41,16 @@ public class PublicEventController {
                                                    @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
                                                    @RequestParam(defaultValue = "10") @Positive Integer size,
                                                    HttpServletRequest request) {
-        List<EventShortDto> ans = eventService.findEventsForPublic(text, categories, paid, rangeStart, rangeEnd,
+        List<EventShortDto> eventShort = eventService.findEventsForPublic(text, categories, paid, rangeStart, rangeEnd,
                 onlyAvailable, sort, from, size, request.getRemoteAddr());
         log.info("Getting a list of events by public search.");
-        return ans;
+        return eventShort;
     }
 
     @GetMapping("/{id}")
     public EventFullDto findEventForPublic(@PathVariable Long id, HttpServletRequest request) {
-        EventFullDto ans = eventService.findEventForPublic(id, request.getRemoteAddr());
+        EventFullDto eventFull = eventService.findEventForPublic(id, request.getRemoteAddr());
         log.info("Receiving an event id = {} by public search.", id);
-        return ans;
+        return eventFull;
     }
 }

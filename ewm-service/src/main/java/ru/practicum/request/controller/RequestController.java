@@ -33,23 +33,23 @@ public class RequestController {
     @ResponseStatus(HttpStatus.CREATED)
     public ParticipationRequestDto createRequest(@PathVariable("userId") Long userId,
                                                  @RequestParam("eventId") Long eventId) {
-        ParticipationRequestDto ans = requestService.createRequest(userId, eventId, LocalDateTime.now());
+        ParticipationRequestDto participationRequest = requestService.createRequest(userId, eventId, LocalDateTime.now());
         log.info("User with id {}, creates a request to participate in an event id {}.", userId, eventId);
-        return ans;
+        return participationRequest;
     }
 
     @PatchMapping("/{requestId}/cancel")
     public ParticipationRequestDto canceledRequest(@PathVariable("userId") Long userId,
                                                    @PathVariable("requestId") Long requestId) {
-        ParticipationRequestDto ans = requestService.canceledRequest(userId, requestId);
+        ParticipationRequestDto participationRequest = requestService.canceledRequest(userId, requestId);
         log.info("User with = {}, cancels his application id = {}.", userId, requestId);
-        return ans;
+        return participationRequest;
     }
 
     @GetMapping
     public List<ParticipationRequestDto> findRequests(@PathVariable("userId") Long userId) {
-        List<ParticipationRequestDto> ans = requestService.findRequests(userId);
+        List<ParticipationRequestDto> participationRequest = requestService.findRequests(userId);
         log.info("Getting a list of user requests id = {}.", userId);
-        return ans;
+        return participationRequest;
     }
 }

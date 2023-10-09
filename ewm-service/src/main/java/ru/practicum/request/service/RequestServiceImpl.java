@@ -82,10 +82,10 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional
     public ParticipationRequestDto canceledRequest(Long userId, Long requestId) {
-        ParticipationRequest ans = requestRepository.findById(requestId)
+        ParticipationRequest participation = requestRepository.findById(requestId)
                 .orElseThrow(() -> new NotFoundException("The request is missing or cannot be edited."));
-        ans.setStatus(RequestStatus.CANCELED);
-        return RequestMapper.toParticipationRequestDto(requestRepository.save(ans));
+        participation.setStatus(RequestStatus.CANCELED);
+        return RequestMapper.toParticipationRequestDto(requestRepository.save(participation));
     }
 
     @Override

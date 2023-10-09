@@ -41,16 +41,16 @@ public class AdministrationEventController {
             @RequestParam(required = false) String rangeEnd,
             @RequestParam(required = false, defaultValue = "0") @PositiveOrZero int from,
             @RequestParam(required = false, defaultValue = "10") @Positive int size) {
-        List<EventFullDto> ans = eventService.findEventsForAdmin(users, states, categories, rangeStart, rangeEnd, from, size);
+        List<EventFullDto> eventFull = eventService.findEventsForAdmin(users, states, categories, rangeStart, rangeEnd, from, size);
         log.info("Retrieving a list of events by search parameters");
-        return ans;
+        return eventFull;
     }
 
     @PatchMapping("/events/{eventId}")
     public EventFullDto updateEventForAdmin(@PathVariable Long eventId,
                                             @RequestBody @Valid UpdateEventAdminRequestDto updateEventAdminRequestDto) {
-        EventFullDto ans = eventService.updateEventForAdmin(eventId, updateEventAdminRequestDto);
+        EventFullDto eventFull = eventService.updateEventForAdmin(eventId, updateEventAdminRequestDto);
         log.info("Admin edits event id ={}.", eventId);
-        return ans;
+        return eventFull;
     }
 }

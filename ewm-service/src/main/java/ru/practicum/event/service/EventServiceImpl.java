@@ -78,9 +78,9 @@ public class EventServiceImpl implements EventService {
         Location location = locationRepository.save(LocationMapper.toLocation(newEventDto.getLocation()));
         event.setLocation(location);
 
-        EventFullDto ans = EventMapper.toEventFoolDtoForSave(eventRepository.save(event));
-        ans.setCategory(CategoryMapper.toCategoryDto(event.getCategory()));
-        return ans;
+        EventFullDto eventFull = EventMapper.toEventFoolDtoForSave(eventRepository.save(event));
+        eventFull.setCategory(CategoryMapper.toCategoryDto(event.getCategory()));
+        return eventFull;
     }
 
     @Override
@@ -93,8 +93,8 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventFullDto findEvent(Long idUser, Long idEvent) {
         Event event = eventRepository.findEventByIdAndInitiatorId(idEvent, idUser);
-        EventFullDto ans = EventMapper.toEventFoolDtoForUser(event);
-        return ans;
+        EventFullDto eventFull = EventMapper.toEventFoolDtoForUser(event);
+        return eventFull;
     }
 
     @Override
@@ -181,8 +181,8 @@ public class EventServiceImpl implements EventService {
         if (upEvent.getState().equals(EventState.PUBLISHED)) {
             upEvent.setPublishedOn(LocalDateTime.now());
         }
-        EventFullDto ans = EventMapper.toEventFoolDtoForUser(eventRepository.save(upEvent));
-        return ans;
+        EventFullDto eventFull = EventMapper.toEventFoolDtoForUser(eventRepository.save(upEvent));
+        return eventFull;
     }
 
     @Override

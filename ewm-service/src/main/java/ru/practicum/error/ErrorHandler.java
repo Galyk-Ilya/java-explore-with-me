@@ -45,8 +45,13 @@ public class ErrorHandler {
         StringWriter out = new StringWriter();
         exception.printStackTrace(new PrintWriter(out));
         String stackTrace = out.toString();
-        return new ApiError(status, "Error", exception.getMessage(), Collections.singletonList(stackTrace),
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern(Patterns.DATE_PATTERN)));
+        return ApiError.builder()
+                .errors(Collections.singletonList(stackTrace))
+                .reason("Error")
+                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern(Patterns.DATE_PATTERN)))
+                .message(exception.getMessage())
+                .status(status.getReasonPhrase().toUpperCase())
+                .build();
     }
 
     @ExceptionHandler

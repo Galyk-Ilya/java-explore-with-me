@@ -13,7 +13,6 @@ import ru.practicum.category.repository.CategoryRepository;
 import ru.practicum.error.exceptions.NotFoundException;
 import ru.practicum.event.repository.EventRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

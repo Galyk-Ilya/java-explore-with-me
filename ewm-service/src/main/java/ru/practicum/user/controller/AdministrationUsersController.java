@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @Validated
-@RequestMapping("/users/admin")
+@RequestMapping("/admin/users")
 public class AdministrationUsersController {
     private final UserService userService;
 
@@ -34,14 +34,14 @@ public class AdministrationUsersController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @PostMapping()
     public UserDto addUser(@RequestBody @Valid UserDto userDto) {
         UserDto addedUser = userService.addUser(userDto);
         log.info("Admin has registered a new user: " + addedUser.toString());
         return addedUser;
     }
 
-    @GetMapping
+    @GetMapping()
     public List<UserDto> findUsers(@RequestParam(required = false) List<Long> ids,
                                    @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                    @RequestParam(defaultValue = "10") @Positive int size) {

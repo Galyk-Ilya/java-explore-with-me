@@ -13,6 +13,7 @@ import ru.practicum.category.repository.CategoryRepository;
 import ru.practicum.error.exceptions.NotFoundException;
 import ru.practicum.event.repository.EventRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,7 +52,11 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDto> findCategories(int from, int size) {
         Pageable pageable = PageRequest.of(from / size, size);
         List<Category> categories = categoryRepository.findAll(pageable).getContent();
-        return categories.stream().map(CategoryMapper::toCategoryDto).collect(Collectors.toList());
+        List<CategoryDto> category = new ArrayList<>();
+        if (!categories.isEmpty()) {
+            category.addAll(categories.stream().map(CategoryMapper::toCategoryDto).collect(Collectors.toList()));
+        }
+        return category;
     }
 
     @Override

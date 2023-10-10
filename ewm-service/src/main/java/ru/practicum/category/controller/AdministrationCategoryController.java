@@ -18,7 +18,7 @@ import javax.validation.Valid;
 
 @RestController
 @Slf4j
-@RequestMapping("/admin")
+@RequestMapping("/admin/categories")
 public class AdministrationCategoryController {
 
     private final CategoryService categoryService;
@@ -29,14 +29,14 @@ public class AdministrationCategoryController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/categories")
+    @PostMapping
     public CategoryDto addCategory(@Valid @RequestBody CategoryDto categoryDto) {
         CategoryDto category = categoryService.addCategory(categoryDto);
         log.info("Admin added category {}", categoryDto.getName());
         return category;
     }
 
-    @PatchMapping("/categories/{catId}")
+    @PatchMapping("/{catId}")
     public CategoryDto patchCategory(@RequestBody @Valid CategoryDto categoryDto,
                                      @PathVariable Long catId) {
         CategoryDto category = categoryService.patchCategory(catId, categoryDto);
@@ -45,7 +45,7 @@ public class AdministrationCategoryController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/categories/{catId}")
+    @DeleteMapping("/{catId}")
     public void deleteCategory(@PathVariable Long catId) {
         categoryService.deleteCategory(catId);
         log.info("Admin deletes category with id = {}.", catId);

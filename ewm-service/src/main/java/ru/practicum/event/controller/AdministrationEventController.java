@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @Validated
-@RequestMapping("/admin")
+@RequestMapping("/admin/events")
 public class AdministrationEventController {
     private final EventService eventService;
 
@@ -32,7 +32,7 @@ public class AdministrationEventController {
         this.eventService = eventService;
     }
 
-    @GetMapping("/events")
+    @GetMapping
     public List<EventFullDto> findEventsForAdmin(
             @RequestParam(required = false) List<Long> users,
             @RequestParam(required = false) List<EventState> states,
@@ -46,7 +46,7 @@ public class AdministrationEventController {
         return eventFull;
     }
 
-    @PatchMapping("/events/{eventId}")
+    @PatchMapping("/{eventId}")
     public EventFullDto updateEventForAdmin(@PathVariable Long eventId,
                                             @RequestBody @Valid UpdateEventAdminRequestDto updateEventAdminRequestDto) {
         EventFullDto eventFull = eventService.updateEventForAdmin(eventId, updateEventAdminRequestDto);

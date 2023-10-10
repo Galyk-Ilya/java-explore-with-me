@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @Validated
-@RequestMapping("/admin")
+@RequestMapping("/users/admin")
 public class AdministrationUsersController {
     private final UserService userService;
 
@@ -34,14 +34,14 @@ public class AdministrationUsersController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/users")
+    @PostMapping
     public UserDto addUser(@RequestBody @Valid UserDto userDto) {
         UserDto addedUser = userService.addUser(userDto);
         log.info("Admin has registered a new user: " + addedUser.toString());
         return addedUser;
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public List<UserDto> findUsers(@RequestParam(required = false) List<Long> ids,
                                    @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                    @RequestParam(defaultValue = "10") @Positive int size) {
@@ -51,7 +51,7 @@ public class AdministrationUsersController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         log.info("Admin deleted user with id={}", id);

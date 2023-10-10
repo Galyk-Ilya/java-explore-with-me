@@ -20,7 +20,4 @@ public class ApiError {
     String reason;
     String status;
     String timestamp;
-
-    public <T> ApiError(HttpStatus status, String reason, String message, List<T> errors, String timestamp) {
-    }
 }

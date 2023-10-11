@@ -41,7 +41,7 @@ public class AdministrationUsersController {
         return addedUser;
     }
 
-    @GetMapping()
+    @GetMapping
     public List<UserDto> findUsers(@RequestParam(required = false) List<Long> ids,
                                    @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                    @RequestParam(defaultValue = "10") @Positive int size) {

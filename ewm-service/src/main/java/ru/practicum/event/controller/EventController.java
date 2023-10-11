@@ -32,7 +32,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @Validated
-@RequestMapping("/users")
+@RequestMapping("/users/{userId}/events")
 public class EventController {
     private final EventService eventService;
     private final RequestService requestService;
@@ -45,7 +45,7 @@ public class EventController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @Validated(ValidationGroup.AddEvent.class)
-    @PostMapping("/{userId}/events")
+    @PostMapping
     public EventFullDto addEvent(@Valid @RequestBody NewEventDto newEventDto,
                                  @PathVariable(name = "userId") Long id) {
         if (newEventDto.getRequestModeration() == null) {
@@ -56,7 +56,7 @@ public class EventController {
         return eventFull;
     }
 
-    @GetMapping("/{userId}/events")
+    @GetMapping
     public List<EventShortDto> findEvents(@PathVariable(name = "userId") Long id,
                                           @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                           @RequestParam(defaultValue = "10") @Positive int size) {
@@ -65,7 +65,7 @@ public class EventController {
         return eventShort;
     }
 
-    @GetMapping("/{userId}/events/{eventId}")
+    @GetMapping("/{eventId}")
     public EventFullDto findEvent(@PathVariable(name = "userId") Long idUser,
                                   @PathVariable(name = "eventId") Long idEvent) {
         EventFullDto eventFull = eventService.findEvent(idUser, idEvent);
@@ -73,7 +73,7 @@ public class EventController {
         return eventFull;
     }
 
-    @PatchMapping("/{userId}/events/{eventId}")
+    @PatchMapping("/{eventId}")
     public EventFullDto updateEvent(@PathVariable(name = "userId") Long idUser,
                                     @PathVariable(name = "eventId") Long idEven,
                                     @RequestBody @Valid UpdateEventUserRequestDto updateEventUserRequestDto) {
@@ -82,7 +82,7 @@ public class EventController {
         return eventFull;
     }
 
-    @GetMapping("/{userId}/events/{eventId}/requests")
+    @GetMapping("/{eventId}/requests")
     public List<ParticipationRequestDto> findRequestsByUsersEvent(@PathVariable(name = "userId") Long idUser,
                                                                   @PathVariable(name = "eventId") Long idEvent) {
         List<ParticipationRequestDto> participationRequest = requestService.findRequestsByUsersEvent(idEvent, idUser);
@@ -90,7 +90,7 @@ public class EventController {
         return participationRequest;
     }
 
-    @PatchMapping("/{userId}/events/{eventId}/requests")
+    @PatchMapping("/{eventId}/requests")
     public EventRequestStatusUpdateResultDto updateStatusRequests(@PathVariable(name = "userId") Long idUser,
                                                                   @PathVariable(name = "eventId") Long idEvent,
                                                                   @RequestBody EventRequestStatusUpdateRequestDto statusUpdateRequest) {

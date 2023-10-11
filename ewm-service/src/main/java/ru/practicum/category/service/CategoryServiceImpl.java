@@ -52,7 +52,9 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDto> findCategories(int from, int size) {
         Pageable pageable = PageRequest.of(from / size, size);
         List<Category> categories = categoryRepository.findAll(pageable).getContent();
-        return categories.stream().map(CategoryMapper::toCategoryDto).collect(Collectors.toList());
+        List<CategoryDto> category = new ArrayList<>();
+            category.addAll(categories.stream().map(CategoryMapper::toCategoryDto).collect(Collectors.toList()));
+       return category;
 
     }
 
